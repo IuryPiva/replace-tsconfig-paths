@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "app/*": [
+        "./src/js/app/*"
+      ],
+      "img/*": [
+        "./src/img/*"
+      ],
+      "css/*": [
+        "./src/css/*"
+      ]
+    }
+  }
+}
