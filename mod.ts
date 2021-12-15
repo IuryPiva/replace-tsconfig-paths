@@ -31,7 +31,11 @@ function getDotDot(path: string, pathMap: string) {
   if (!result.startsWith(".")) {
     result = "./" + result;
   }
-  return result + "/";
+  if (!result.endsWith("/")) {
+    result = result + "/";
+  }
+
+  return result;
 }
 
 // console.log(getDotDot("src/js/app/factory/sys.ts", ["app/", "src/js/app/"]));
@@ -42,7 +46,10 @@ for await (const entry of walk("./src")) {
     let text = Deno.readTextFileSync(entry.path);
     for (const [from, to] of pathMap.entries()) {
       if (text.includes(`from "${from}`)) {
-        text = text.replace(`from "${from}`, `from "${getDotDot(entry.path, to)}`)
+        text = text.replaceAll(
+          `from "${from}`,
+          `from "${getDotDot(entry.path, to)}`,
+        );
       }
     }
     Deno.writeTextFileSync(entry.path, text);
